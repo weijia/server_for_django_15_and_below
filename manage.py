@@ -2,12 +2,11 @@
 import logging
 import os
 import sys
-import re
 
 
 my_path = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.join(my_path, "server_base_packages/libtool"))
-from libtool import include_all, include_file_sibling_folder
+from libtool import include_all
 from libtool import get_folder
 include_all(__file__, "server_base_packages")
 include_all(__file__, "external_apps")

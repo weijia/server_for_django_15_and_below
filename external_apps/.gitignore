@@ -1,0 +1,8 @@
+/.idea
+*.pyc
+*.db
+/data
+/static
+/config.yaml
+/index.wsgi
+

@@ -1,0 +1,13 @@
+/.idea
+*.pyc
+*.db
+/keys/secret_key.py
+/data
+/keys/local_keys
+/extra_settings/local_settings
+/static
+/config.yaml
+/index.wsgi
+/external_apps
+/extra_settings/local_keys
+/local

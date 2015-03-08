@@ -1,0 +1,3 @@
+django-jquery-ui
+django-mptt
+django-oauth2-provider

@@ -1,0 +1,1 @@
+rem call ..\..\mine\venv\Scripts\activate.bat

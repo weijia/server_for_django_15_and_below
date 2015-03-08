@@ -11,7 +11,7 @@ from libtool import include_all, include_file_sibling_folder
 from libtool import get_folder
 include_all(__file__, "server_base_packages")
 include_all(__file__, "external_apps")
-include_file_sibling_folder(__file__, "local")
+#include_file_sibling_folder(__file__, "local")
 #include_file_sibling_folder(__file__, "extra_settings/keys")
 #include_file_sibling_folder(__file__, "server_base_packages/django-bootstrap3/demo/")
 from djangoautoconf.auto_conf_signals import ServerSignalTrigger
@@ -22,11 +22,8 @@ def initialize_settings():
     #Added keys folder to path so DjangoAutoConf can find keys in it
     c = DjangoAutoConf()
     c.set_default_settings("default_django_15_and_below.settings")
-    root_folder = get_folder(__file__)
-    c.set_root_dir(root_folder)
-    c.set_local_key_folder(os.path.join(root_folder, "local/local_keys"))
-    local_setting_dir = os.path.join(root_folder, "local/local_settings")
-    c.add_extra_settings_from_folder(local_setting_dir)
+    c.set_root_dir(get_folder(__file__))
+    c.add_extra_settings_from_folder()
     c.configure()
 
     """

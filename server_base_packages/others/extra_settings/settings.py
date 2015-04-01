@@ -14,4 +14,6 @@ INSTALLED_APPS += (
     'webmanager',
 )
 
+TEMPLATE_CONTEXT_PROCESSORS = tuple()
+
 ROOT_URLCONF = 'extra_settings.urls'

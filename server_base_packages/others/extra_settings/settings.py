@@ -14,6 +14,8 @@ INSTALLED_APPS += (
     'webmanager',
 )
 
-TEMPLATE_CONTEXT_PROCESSORS = tuple()
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'django.contrib.auth.context_processors.auth',
+)
 
 ROOT_URLCONF = 'extra_settings.urls'

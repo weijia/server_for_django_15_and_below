@@ -6,4 +6,4 @@
 /config.yaml
 /index.wsgi
 /external_apps
-/local
+#/local

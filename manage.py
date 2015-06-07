@@ -9,7 +9,7 @@ sys.path.append(os.path.join(my_path, "server_base_packages/libtool"))
 from libtool import include_all
 from libtool import get_folder
 include_all(__file__, "server_base_packages")
-include_all(__file__, "external_apps")
+# include_all(__file__, "external_app_repos/external_apps")
 #include_file_sibling_folder(__file__, "local")
 #include_file_sibling_folder(__file__, "extra_settings/keys")
 #include_file_sibling_folder(__file__, "server_base_packages/django-bootstrap3/demo/")
@@ -18,11 +18,12 @@ from djangoautoconf.auto_conf_signals import ServerSignalTrigger
 
 def initialize_settings():
     from djangoautoconf import DjangoAutoConf
-    #Added keys folder to path so DjangoAutoConf can find keys in it
+    # Added keys folder to path so DjangoAutoConf can find keys in it
     c = DjangoAutoConf()
-    c.set_default_settings("default_django_15_and_below.settings")
     c.set_root_dir(get_folder(__file__))
-    c.add_extra_settings_from_folder()
+    c.set_external_app_repositories("external_app_repos")
+    c.set_default_settings("default_django_15_and_below.settings")
+    # c.add_extra_settings_from_folder()
     c.configure()
 
     """

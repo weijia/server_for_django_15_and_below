@@ -32,14 +32,17 @@ def initialize_settings():
     """
 
 if __name__ == "__main__":
-    #os.environ.setdefault("DJANGO_SETTINGS_MODULE", "default_django_15_and_below.settings")
-    #logging.basicConfig(level=logging.DEBUG)
+    # os.environ.setdefault("DJANGO_SETTINGS_MODULE", "default_django_15_and_below.settings")
+    logging.basicConfig(level=logging.DEBUG)
+    logger = logging.getLogger('django_auth_ldap')
+    logger.addHandler(logging.StreamHandler())
 
+    logger.setLevel(logging.DEBUG)
     initialize_settings()
     from django.core.management import execute_from_command_line
-    #Need to put the import here after Django settings are configured
-    #import django_cron
-    #django_cron.start_cron_when_run_server()
+    # Need to put the import here after Django settings are configured
+    # import django_cron
+    # django_cron.start_cron_when_run_server()
     trigger = ServerSignalTrigger()
     trigger.trigger_server_start_if_needed()
     execute_from_command_line(sys.argv)

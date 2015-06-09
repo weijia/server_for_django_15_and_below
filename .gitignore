@@ -9,3 +9,4 @@
 #/local
 /local/local_keys
 /.ipynb_checkpoints
+/external_app_repos/*

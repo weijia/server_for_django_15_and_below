@@ -34,7 +34,7 @@ def initialize_settings():
 
 if __name__ == "__main__":
     # os.environ.setdefault("DJANGO_SETTINGS_MODULE", "default_django_15_and_below.settings")
-    logging.basicConfig(level=logging.DEBUG)
+    # logging.basicConfig(level=logging.DEBUG)
     logger = logging.getLogger('django_auth_ldap')
     logger.addHandler(logging.StreamHandler())
 

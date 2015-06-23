@@ -2,18 +2,15 @@
 import logging
 import os
 import sys
-from djangoautoconf.version_mismatch_work_around import force_bytes
+
 
 my_path = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.join(my_path, "server_base_packages/libtool"))
 from libtool import include_all
 from libtool import get_folder
 include_all(__file__, "server_base_packages")
-# include_all(__file__, "external_app_repos/external_apps")
-#include_file_sibling_folder(__file__, "local")
-#include_file_sibling_folder(__file__, "extra_settings/keys")
-#include_file_sibling_folder(__file__, "server_base_packages/django-bootstrap3/demo/")
 from djangoautoconf.auto_conf_signals import ServerSignalTrigger
+from djangoautoconf.version_mismatch_work_around import force_bytes
 
 
 def initialize_settings():

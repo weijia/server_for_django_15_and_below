@@ -4,3 +4,5 @@ django-oauth2-provider
 # Optional requirements
 ipython[notebook]
 towel_bootstrap
+jinjia2
+jsonschema

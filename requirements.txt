@@ -1,3 +1,4 @@
+django==1.4.20
 django-jquery-ui
 django-mptt
 django-oauth2-provider

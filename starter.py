@@ -1,5 +1,6 @@
 import logging
 import os
+import threading
 import time
 from manage import initialize_settings
 
@@ -21,7 +22,8 @@ def start_task_starter():
     while True:
         time.sleep(1)
         try:
-            c.execute_in_remote({"task_starter": ["manage.py", "clipboard_monitor_task"]})
+            c.execute_in_remote({"clipboard_monitor": ["manage.py", "clipboard_monitor_task"]})
+            c.execute_in_remote({"drop_tagger": ["manage.py", "drop_tagger"]})
             break
         except:
             pass
@@ -31,7 +33,7 @@ def main():
     try:
         app = AppConfig(os.path.realpath(__file__), "server_for_django_15_and_below")
         log_folder = app.get_or_create_app_data_folder("logs")
-        # threading.Thread(target=start_task_starter).start()
+        threading.Thread(target=start_task_starter).start()
         i = Iconizer(log_folder)
         # i.start_name_server()
         # i.add_close_listener(stop_services_and_web_servers)

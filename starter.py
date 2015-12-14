@@ -15,6 +15,9 @@ __author__ = 'weijia'
 log = logging.getLogger(__name__)
 
 
+os.environ["POSTGRESQL_ROOT"] = "others/pgsql"
+
+
 def start_task_starter():
     time.sleep(10)
     c = IconizerClient()
@@ -22,13 +25,21 @@ def start_task_starter():
     while True:
         time.sleep(1)
         try:
-            c.execute_in_remote({"clipboard_monitor": ["manage.py", "clipboard_monitor_task"]})
+            # c.execute_in_remote({"clipboard_monitor": ["manage.py", "clipboard_monitor_task"]})
+            # c.execute_in_remote({"postgre_sql": ["postgresql.bat"]})
+            c.execute_in_remote({"web_server": ["manage.py", "runserver", "8110"]})
             c.execute_in_remote({"drop_tagger": ["manage.py", "drop_tagger"]})
             c.execute_in_remote({"git_pull_all": ["manage.py", "git_pull_all"]})
             c.execute_in_remote({"ipynb": ["manage.py", "shell_ipynb"]})
             break
         except:
             pass
+
+
+def stop_postgr_sql():
+    c = IconizerClient()
+    # c.execute_in_remote({"clipboard_monitor": ["manage.py", "clipboard_monitor_task"]})
+    c.execute_in_remote({"stop_postgre_sql": ["postgresql_stop.bat"]})
 
 
 def main():
@@ -43,7 +54,10 @@ def main():
         # i.get_gui_launch_manager().taskbar_icon_app["Open Main Page"] = open_main
 
         # i.execute({"new_ext_svr": [find_callable_in_app_framework("new_ext_svr")]})
-        i.execute({"web_server": ["manage.py", "runserver", "8110"]})
+        # i.execute({"web_server": ["manage.py", "runserver", "8110"]})
+        i.add_final_close_listener(stop_postgr_sql)
+        i.execute({"postgre_sql": ["postgresql.bat"]})
+
 
     except (KeyboardInterrupt, SystemExit):
         raise

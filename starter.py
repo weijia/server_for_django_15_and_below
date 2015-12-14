@@ -25,6 +25,7 @@ def start_task_starter():
             c.execute_in_remote({"clipboard_monitor": ["manage.py", "clipboard_monitor_task"]})
             c.execute_in_remote({"drop_tagger": ["manage.py", "drop_tagger"]})
             c.execute_in_remote({"git_pull_all": ["manage.py", "git_pull_all"]})
+            c.execute_in_remote({"ipynb": ["manage.py", "shell_ipynb"]})
             break
         except:
             pass

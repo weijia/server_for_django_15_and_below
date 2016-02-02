@@ -2,6 +2,8 @@ import logging
 import os
 import threading
 import time
+import traceback
+
 from manage import initialize_settings
 
 initialize_settings()
@@ -30,8 +32,11 @@ def start_task_starter():
             c.execute_in_remote({"web_server": ["manage.py", "runserver", "8110"]})
             c.execute_in_remote({"drop_tagger": ["manage.py", "drop_tagger"]})
             c.execute_in_remote({"git_pull_all": ["manage.py", "git_pull_all"]})
+            # c.execute_in_remote({"ipynb": ["manage.py", "shell_ipynb"]})
+            c.execute_in_remote({"ipynb": ["jupyter-notebook.exe", "--config=ipython_config.py"]})
             break
         except:
+            traceback.print_exc()
             pass
 
 
@@ -56,7 +61,6 @@ def main():
         # i.execute({"web_server": ["manage.py", "runserver", "8110"]})
         i.add_final_close_listener(stop_postgr_sql)
         i.execute({"postgre_sql": ["postgresql.bat"]})
-
 
     except (KeyboardInterrupt, SystemExit):
         raise

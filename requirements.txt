@@ -1,9 +1,13 @@
-django==1.4.20
+reversion
+django==1.4.22
 django-jquery-ui
 django-mptt
 django-oauth2-provider
 # Optional requirements
 ipython[notebook]
-towel_bootstrap
+#towel_bootstrap
 jinjia2
 jsonschema
+#pyparsing==1.5.7
+#pydot
+django-tastypie

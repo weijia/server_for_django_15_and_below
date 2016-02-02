@@ -30,7 +30,8 @@ def start_task_starter():
             c.execute_in_remote({"web_server": ["manage.py", "runserver", "8110"]})
             c.execute_in_remote({"drop_tagger": ["manage.py", "drop_tagger"]})
             c.execute_in_remote({"git_pull_all": ["manage.py", "git_pull_all"]})
-            c.execute_in_remote({"ipynb": ["manage.py", "shell_ipynb"]})
+            # c.execute_in_remote({"ipynb": ["manage.py", "shell_ipynb"]})
+			c.execute_in_remote({"ipynb": ["jupyter-notebook" "--config=ipython_config.py"]})
             break
         except:
             pass

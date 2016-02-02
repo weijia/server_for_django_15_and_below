@@ -23,7 +23,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), "libs"))
 try:
     port = int(sys.argv[1])
 except IndexError:
-    port = 8018
+    port = 8000
 define('port', type=int, default=port)
 
 

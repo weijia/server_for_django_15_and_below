@@ -1,4 +1,4 @@
-reversion
+django-reversion
 django==1.4.22
 django-jquery-ui
 django-mptt

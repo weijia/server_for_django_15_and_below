@@ -10,7 +10,6 @@ from libtool import get_folder
 
 include_all(__file__, "server_base_packages")
 from djangoautoconf.auto_conf_signals import ServerSignalTrigger
-from djangoautoconf.version_mismatch_work_around import force_bytes
 
 
 def initialize_settings():
@@ -38,9 +37,7 @@ if __name__ == "__main__":
 
     logger.setLevel(logging.DEBUG)
     initialize_settings()
-    from django.utils import encoding
 
-    encoding.force_bytes = force_bytes
     from django.core.management import execute_from_command_line
     # Need to put the import here after Django settings are configured
     # import django_cron

@@ -31,3 +31,6 @@
 [submodule "server_base_packages/webmanager"]
 	path = server_base_packages/webmanager
 	url = https://github.com/weijia/webmanager.git
+[submodule "server_base_packages/django-simplemenu"]
+	path = server_base_packages/django-simplemenu
+	url = https://github.com/weijia/django-simplemenu.git

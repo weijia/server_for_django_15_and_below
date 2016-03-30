@@ -19,3 +19,5 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 )
 
 ROOT_URLCONF = 'extra_settings.urls'
+
+AUTHENTICATION_BACKENDS += ('django.contrib.auth.backends.ModelBackend', 'guardian.backends.ObjectPermissionBackend')

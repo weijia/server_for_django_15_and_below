@@ -5,8 +5,7 @@ import sys
 
 my_path = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.join(my_path, "server_base_packages/libtool"))
-from libtool import include_all
-from libtool import get_folder
+from libtool import include_all, get_folder
 
 include_all(__file__, "server_base_packages")
 from djangoautoconf.auto_conf_signals import ServerSignalTrigger

@@ -22,9 +22,6 @@
 [submodule "server_base_packages/djangoautoconf"]
 	path = server_base_packages/djangoautoconf
 	url = https://github.com/weijia/djangoautoconf.git
-[submodule "server_base_packages/django-admin-bootstrapped"]
-	path = server_base_packages/django-admin-bootstrapped
-	url = https://github.com/django-admin-bootstrapped/django-admin-bootstrapped.git
 [submodule "server_base_packages/libtool"]
 	path = server_base_packages/libtool
 	url = https://github.com/weijia/libtool.git

@@ -11,6 +11,7 @@ INSTALLED_APPS += (
     # 'jquery_ui',
     # 'provider',
     # 'provider.oauth2',
+    'simplemenu',
     'webmanager',
 )
 

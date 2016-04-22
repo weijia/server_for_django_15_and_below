@@ -1,5 +1,5 @@
 django-reversion
-django==1.4.22
+django
 django-jquery-ui
 django-mptt
 django-oauth2-provider

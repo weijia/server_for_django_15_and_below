@@ -3,6 +3,9 @@ import os
 import threading
 import time
 import traceback
+
+import psycopg2
+
 from manage import initialize_settings
 
 initialize_settings()
@@ -20,7 +23,7 @@ os.environ["UFS_DATABASE"] = "sqlite"
 
 
 class UfsStarter(object):
-    front_end_task = {"postgre_sql": ["postgresql.bat"]}
+    front_end_task = {"postgre_sql": ["scripts\\postgresql.bat"]}
     background_tasks = ({"web_server": ["manage.py", "runserver", "8110"]},
                         {"drop_tagger": ["manage.py", "drop_tagger"]},
                         {"git_pull_all": ["manage.py", "git_pull_all"]},
@@ -33,7 +36,7 @@ class UfsStarter(object):
                         )
     django_server_folder = "server_for_django_15_and_below"
     log_folder = "logs"
-    cleanup_tasks = [{"stop_postgre_sql": ["postgresql_stop.bat"]}]
+    cleanup_tasks = [{"stop_postgre_sql": ["scripts\\postgresql_stop.bat"]}]
 
     def __init__(self):
         super(UfsStarter, self).__init__()
@@ -59,7 +62,7 @@ class UfsStarter(object):
             # print "stopping database"
 
     def start_task_starter(self):
-        time.sleep(10)
+        self.wait_for_database()
         print "executing in remote!!!!!!"
         try:
             self.execute_tasks(self.background_tasks)
@@ -74,6 +77,30 @@ class UfsStarter(object):
     def final_cleanup(self):
         self.execute_tasks(self.cleanup_tasks)
 
+    # noinspection PyMethodMayBeStatic
+    def wait_for_database(self):
+        # Define our connection string
+        conn_string = "host='localhost' dbname='postgres' user='postgres' password=''"
+        conn_string += " port='%d'" % 5432
+
+        # print the connection string we will use to connect
+        print "Connecting to database\n	->%s" % (conn_string)
+
+        # Check if postgresql started correctly
+        retry_cnt = 0
+        while True:
+            time.sleep(1)
+            try:
+                # get a connection, if a connect cannot be made an exception will be raised here
+                conn = psycopg2.connect(conn_string)
+                break
+            except psycopg2.OperationalError:
+                retry_cnt += 1
+                print "retrying to connect postgresql server"
+                if retry_cnt > 20:
+                    print "postgresql start failed"
+                    raise "Can not start database!!!"
+
 
 class UfsStarterWithSqlite(UfsStarter):
     front_end_task = {"web_server": ["manage.py", "runserver", "8110"]}
@@ -82,6 +109,9 @@ class UfsStarterWithSqlite(UfsStarter):
                         {"background_tasks": ["manage.py", "process_tasks"]},
                         )
     cleanup_tasks = []
+
+    def wait_for_database(self):
+        return
 
 
 if __name__ == '__main__':

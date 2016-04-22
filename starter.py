@@ -6,6 +6,7 @@ import traceback
 
 import psycopg2
 
+from iconizer.iconizer_app_root import IconizerAppRoot
 from manage import initialize_settings
 
 initialize_settings()
@@ -22,7 +23,7 @@ os.environ["POSTGRESQL_ROOT"] = "others/pgsql"
 os.environ["UFS_DATABASE"] = "sqlite"
 
 
-class UfsStarter(object):
+class UfsStarter(IconizerAppRoot):
     front_end_task = {"postgre_sql": ["scripts\\postgresql.bat"]}
     background_tasks = ({"web_server": ["manage.py", "runserver", "8110"]},
                         {"drop_tagger": ["manage.py", "drop_tagger"]},
@@ -34,51 +35,11 @@ class UfsStarter(object):
                         # {"web_server": ["cherrypy_server.py", ]}),
                         # {"ipynb": ["jupyter-notebook.exe", "--config=ipython_config.py"]})
                         )
-    django_server_folder = "server_for_django_15_and_below"
-    log_folder = "logs"
+    app_root_folder_name = "server_for_django_15_and_below"
+    # log_folder = "logs"
     cleanup_tasks = [{"stop_postgre_sql": ["scripts\\postgresql_stop.bat"]}]
 
-    def __init__(self):
-        super(UfsStarter, self).__init__()
-        self.app = AppConfig(os.path.realpath(__file__), self.django_server_folder)
-        self.log_folder = self.app.get_or_create_app_data_folder(self.log_folder)
-        self.iconizer = Iconizer(self.log_folder)
-        self.client = IconizerClient()
-
-    def start_ufs_sys(self):
-        try:
-            threading.Thread(target=self.start_task_starter).start()
-            # i.start_name_server()
-            # i.add_close_listener(stop_services_and_web_servers)
-            # i.add_final_close_listener(stop_postgresql)
-            # i.get_gui_launch_manager().taskbar_icon_app["Open Main Page"] = open_main
-
-            # i.execute({"new_ext_svr": [find_callable_in_app_framework("new_ext_svr")]})
-            self.iconizer.add_final_close_listener(self.final_cleanup)
-            self.iconizer.execute(self.front_end_task)
-
-        except (KeyboardInterrupt, SystemExit):
-            raise
-            # print "stopping database"
-
-    def start_task_starter(self):
-        self.wait_for_database()
-        print "executing in remote!!!!!!"
-        try:
-            self.execute_tasks(self.background_tasks)
-        except:
-            traceback.print_exc()
-            pass
-
-    def execute_tasks(self, tasks):
-        for task in tasks:
-            self.client.execute_in_remote(task)
-
-    def final_cleanup(self):
-        self.execute_tasks(self.cleanup_tasks)
-
-    # noinspection PyMethodMayBeStatic
-    def wait_for_database(self):
+    def sync_to_main_thread(self):
         # Define our connection string
         conn_string = "host='localhost' dbname='postgres' user='postgres' password=''"
         conn_string += " port='%d'" % 5432
@@ -102,18 +63,6 @@ class UfsStarter(object):
                     raise "Can not start database!!!"
 
 
-class UfsStarterWithSqlite(UfsStarter):
-    front_end_task = {"web_server": ["manage.py", "runserver", "8110"]}
-    background_tasks = ({"drop_tagger": ["manage.py", "drop_tagger"]},
-                        {"git_pull_all": ["manage.py", "git_pull_all"]},
-                        {"background_tasks": ["manage.py", "process_tasks"]},
-                        )
-    cleanup_tasks = []
-
-    def wait_for_database(self):
-        return
-
-
 if __name__ == '__main__':
     logging.basicConfig(level=logging.DEBUG)
-    UfsStarter().start_ufs_sys()
+    UfsStarter().start_iconized_applications()

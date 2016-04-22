@@ -24,6 +24,7 @@ class UfsStarter(object):
     background_tasks = ({"web_server": ["manage.py", "runserver", "8110"]},
                         {"drop_tagger": ["manage.py", "drop_tagger"]},
                         {"git_pull_all": ["manage.py", "git_pull_all"]},
+                        {"background_tasks": ["manage.py", "process_tasks"]},
                         # {"ipynb": ["manage.py", "shell_ipynb"]},
                         # {"ipynb": ["jupyter-notebook.exe", "--config=ipython_config.py"]},
                         # {"clipboard_monitor": ["manage.py", "clipboard_monitor_task"]},
@@ -78,11 +79,7 @@ class UfsStarterWithSqlite(UfsStarter):
     front_end_task = {"web_server": ["manage.py", "runserver", "8110"]}
     background_tasks = ({"drop_tagger": ["manage.py", "drop_tagger"]},
                         {"git_pull_all": ["manage.py", "git_pull_all"]},
-                        # {"ipynb": ["manage.py", "shell_ipynb"]},
-                        # {"ipynb": ["jupyter-notebook.exe", "--config=ipython_config.py"]},
-                        # {"clipboard_monitor": ["manage.py", "clipboard_monitor_task"]},
-                        # {"web_server": ["cherrypy_server.py", ]}),
-                        # {"ipynb": ["jupyter-notebook.exe", "--config=ipython_config.py"]})
+                        {"background_tasks": ["manage.py", "process_tasks"]},
                         )
     cleanup_tasks = []
 

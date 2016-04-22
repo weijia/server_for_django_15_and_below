@@ -1,1 +1,1 @@
-ipython notebook --config ipython_config.py
+jupyter notebook

@@ -11,3 +11,4 @@ jsonschema
 #pyparsing==1.5.7
 #pydot
 django-tastypie
+ufs-tools

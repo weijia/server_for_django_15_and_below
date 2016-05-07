@@ -19,10 +19,11 @@ class UfsStarter(DjangoStarter):
         return (
             # {"web_server": ["manage_with_conf.py", "runserver", "8110"]},
             self.django_server.get_task_descriptor("runserver", ["8110"]),
-            # django_server.get_django_task("drop_tagger"),
-            # django_server.get_django_task("process_tasks"),
-            # django_server.get_django_task("shell_ipynb"),
-            # django_server.get_django_task("clipboard_monitor_task"),
+            self.django_server.get_task_descriptor("git_pull_all"),
+            self.django_server.get_task_descriptor("drop_tagger"),
+            # self.django_server.get_task_descriptor("process_tasks"),
+            # self.django_server.get_task_descriptor("shell_ipynb"),
+            # self.django_server.get_task_descriptor("clipboard_monitor_task"),
             # {"web_server": ["cherrypy_server.py", ]}),
             # {"ipython_notebook": ["jupyter-notebook.exe", "--config=ipython_config.py"]})
         )

@@ -1,18 +1,22 @@
 import logging
 
-from iconizer.iconizer_app_root import IconizerAppRoot
-
-log = logging.getLogger(__name__)
+from iconizer.django_in_iconizer.django_starter import DjangoStarter
 
 
-class UfsStarterWithSqlite(IconizerAppRoot):
-    front_end_task = {"web_server": ["manage.py", "runserver", "8110"]}
-    background_tasks = ({"drop_tagger": ["manage.py", "drop_tagger"]},
-                        {"git_pull_all": ["manage.py", "git_pull_all"]},
-                        # {"background_tasks": ["manage.py", "process_tasks"]},
-                        )
-    cleanup_tasks = []
-    app_root_folder_name = "server_for_django_15_and_below"
+class UfsStarterWithSqlite(DjangoStarter):
+    django_main_script_name = "manage.py"
+
+    def get_frontend_task_descriptor(self):
+        return self.django_server.get_task_descriptor("runserver", ["8110"])
+
+    def get_background_tasks(self):
+        return [
+            # self.django_server.get_task_descriptor("drop_tagger"),
+            # self.django_server.get_task_descriptor("git_pull_all"),
+        ]
+
+    def get_cleanup_task_descriptors(self):
+        return []
 
 
 if __name__ == '__main__':

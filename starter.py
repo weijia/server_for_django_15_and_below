@@ -1,10 +1,5 @@
 import logging
 import os
-import threading
-import time
-import traceback
-
-import psycopg2
 
 from iconizer.django_in_iconizer.django_in_iconizer import DjangoInIconizer
 from iconizer.django_in_iconizer.postgresql_checker import PostgreSqlChecker

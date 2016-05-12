@@ -1,8 +1,7 @@
 import logging
 import os
 
-from iconizer.django_in_iconizer.django_starter import DjangoStarter
-from iconizer.django_in_iconizer.postgresql_checker import PostgreSqlChecker
+from iconizer.django_in_iconizer.django_postgresql_starter import DjangoPostgresqlStarter
 from manage import initialize_settings
 
 initialize_settings()
@@ -14,7 +13,7 @@ os.environ["POSTGRESQL_ROOT"] = "others/pgsql"
 os.environ["UFS_DATABASE"] = "sqlite"
 
 
-class UfsStarter(DjangoPostStarter):
+class UfsStarter(DjangoPostgresqlStarter):
     def get_background_tasks(self):
         return (
             # {"web_server": ["manage_with_conf.py", "runserver", "8110"]},

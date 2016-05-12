@@ -19,7 +19,7 @@ class UfsStarterWithSqlite(DjangoStarter):
 
     def sync_to_main_thread(self):
         self.init_ufs_db()
-        
+
 
 if __name__ == '__main__':
     logging.basicConfig(level=logging.DEBUG)

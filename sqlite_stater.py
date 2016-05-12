@@ -4,7 +4,6 @@ from iconizer.django_in_iconizer.django_starter import DjangoStarter
 
 
 class UfsStarterWithSqlite(DjangoStarter):
-    django_main_script_name = "manage.py"
 
     def get_frontend_task_descriptor(self):
         return self.django_server.get_task_descriptor("runserver", ["8110"])
@@ -18,6 +17,9 @@ class UfsStarterWithSqlite(DjangoStarter):
     def get_cleanup_task_descriptors(self):
         return []
 
+    def sync_to_main_thread(self):
+        self.init_ufs_db()
+        
 
 if __name__ == '__main__':
     logging.basicConfig(level=logging.DEBUG)

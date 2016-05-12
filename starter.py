@@ -14,13 +14,13 @@ os.environ["POSTGRESQL_ROOT"] = "others/pgsql"
 os.environ["UFS_DATABASE"] = "sqlite"
 
 
-class UfsStarter(DjangoStarter):
+class UfsStarter(DjangoPostStarter):
     def get_background_tasks(self):
         return (
             # {"web_server": ["manage_with_conf.py", "runserver", "8110"]},
             self.django_server.get_task_descriptor("runserver", ["8110"]),
-            self.django_server.get_task_descriptor("git_pull_all"),
-            self.django_server.get_task_descriptor("drop_tagger"),
+            # self.django_server.get_task_descriptor("git_pull_all"),
+            # self.django_server.get_task_descriptor("drop_tagger"),
             # self.django_server.get_task_descriptor("process_tasks"),
             # self.django_server.get_task_descriptor("shell_ipynb"),
             # self.django_server.get_task_descriptor("clipboard_monitor_task"),
